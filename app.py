@@ -83,6 +83,8 @@ def balance_teams(team_list, player_list):
 
 
 def main():
+    """the main code that is called to run"""
+
     players_copy = PLAYERS.copy()
     teams_copy = TEAMS.copy()
 
@@ -114,7 +116,7 @@ def main():
             
             while True:
                 if team_choice.isdigit() == False or int(team_choice) not in range(1, len(balanced_list) + 1):
-                    print("you must enter a number within the correct range")
+                    print("you must enter an integer within the correct range")
                     team_choice = input("Enter an option >")
                     continue
                 else:
@@ -162,10 +164,8 @@ def main():
 
         else:
             print("")
-            print("you must enter a number within the correct range")
+            print("you must enter an integer within the correct range")
             continue
-
-
 
 
 if __name__ == "__main__":
