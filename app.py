@@ -88,7 +88,7 @@ def main():
 
     clean_data(players_copy)
     balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
-
+    print("")
     print("BASKETBALL TEAM STATS TOOL")
     print("")
 
@@ -145,7 +145,20 @@ def main():
                 string_of_names = string_of_names + i['name'] + ', '
             
             string_of_names = string_of_names[:-2]
+            
+            print("")
+            print("Players:")
             print(string_of_names)
+
+            list_of_guardians = []
+
+            for i in balanced_list[listified_team[int(team_choice) - 1]]:
+                list_of_guardians = list_of_guardians + i['guardians']
+
+            print("")
+            print("Guardians:")
+            print(', '.join(list_of_guardians))
+            print("")
 
         else:
             print("")
