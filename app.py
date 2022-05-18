@@ -1,5 +1,5 @@
-from constants_copy import PLAYERS
-from constants_copy import TEAMS
+from constants import PLAYERS
+from constants import TEAMS
 
 def clean_height(height):
     """ cleans up player height by changing it into an integer value """ 
@@ -41,7 +41,7 @@ def clean_data(player_list):
 def balance_teams(team_list, player_list):
     """balances the experienced and inexperienced players across the three teams equally"""
 
-    team_dict = {}  # in this dictionary, the team name will be the key, and a list of player names in that team will be the value
+    team_dict = {}
     team_temp = team_list.copy()
 
     players_temp = player_list.copy()
@@ -70,16 +70,48 @@ def balance_teams(team_list, player_list):
 
     for team in team_temp:
         for i in range(start1, stop1):
-            team_dict[team].append(experienced_players[i]['name'])
+            team_dict[team].append(experienced_players[i])
         start1 += exp_players_per_team
         stop1 += exp_players_per_team
 
         for i in range(start2, stop2):
-            team_dict[team].append(inexperienced_players[i]['name'])
+            team_dict[team].append(inexperienced_players[i])
         start2 += inexp_players_per_team
         stop2 += inexp_players_per_team
 
     return team_dict, exp_players_per_team, inexp_players_per_team
+
+
+def main():
+    players_copy = PLAYERS.copy()
+    teams_copy = TEAMS.copy()
+
+    clean_data(players_copy)
+    balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
+
+    print("BASKETBALL TEAM STATS TOOL")
+    print("")
+
+    while True:
+        print("---- MENU----")
+        print("")
+        print("Here are your choices:")
+        print(" 1) Display Team Stats")
+        print(" 2) Quit")
+        print("")
+        
+        choice = input(">")
+        if choice == 'Quit' or choice == '1':
+            break
+
+        elif choice == 'Display Team Stats' or choice == '2':
+            for team in balanced_list:
+                pass
+
+        else:
+            continue
+
+
 
 
 if __name__ == "__main__":
