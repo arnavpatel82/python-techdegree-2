@@ -169,16 +169,4 @@ def main():
 
 
 if __name__ == "__main__":
-
-    # players_copy = PLAYERS.copy()
-    # teams_copy = TEAMS.copy()
-
-    # clean_data(players_copy)
-    # balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
-
-    # for i in balanced_list:
-    #     print(f"{i}:{balanced_list[i]}")
-
-    # print(f'experienced: {exp_per_team} // unexperienced: {inexp_per_team}')
-
     main()
