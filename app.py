@@ -1,6 +1,7 @@
 from constants import PLAYERS
 from constants import TEAMS
 
+
 def clean_height(height):
     """ cleans up player height by changing it into an integer value """ 
 
@@ -37,7 +38,6 @@ def clean_data(player_list):
        dic['guardians'] = clean_guardians(dic['guardians'])
 
         
-
 def balance_teams(team_list, player_list):
     """balances the experienced and inexperienced players across the three teams equally"""
 
@@ -100,15 +100,56 @@ def main():
         print(" 2) Quit")
         print("")
         
-        choice = input(">")
-        if choice == 'Quit' or choice == '1':
+        choice = input("Enter an option >")
+        if choice == 'Quit' or choice == '2':
             break
 
-        elif choice == 'Display Team Stats' or choice == '2':
+        elif choice == 'Display Team Stats' or choice == '1':
+            count = 1
             for team in balanced_list:
-                pass
+                print(f"{count}) {team}")
+                count = count + 1
+            
+            team_choice = input("Enter an option >")
+            
+            while True:
+                if team_choice.isdigit() == False or int(team_choice) not in range(1, len(balanced_list) + 1):
+                    print("you must enter a number within the correct range")
+                    team_choice = input("Enter an option >")
+                    continue
+                else:
+                    break
+            
+            listified_team = list(balanced_list)
+            print("")
+            total_players = len(balanced_list[listified_team[int(team_choice) - 1]])
+
+            print(f"Team: {listified_team[int(team_choice) - 1]}")
+            print("--------------------")
+            print(f"Total players: {total_players}")
+            print(f"Total experienced: {exp_per_team}")
+            print(f"Total inexperienced: {inexp_per_team}")
+
+            total_height = 0
+
+            for i in balanced_list[listified_team[int(team_choice) - 1]]:
+                total_height = total_height + i['height']
+
+            average_height = total_height / total_players
+
+            print(f"Average height: {average_height}")
+
+            string_of_names = ""
+
+            for i in balanced_list[listified_team[int(team_choice) - 1]]:
+                string_of_names = string_of_names + i['name'] + ', '
+            
+            string_of_names = string_of_names[:-2]
+            print(string_of_names)
 
         else:
+            print("")
+            print("you must enter a number within the correct range")
             continue
 
 
@@ -116,13 +157,15 @@ def main():
 
 if __name__ == "__main__":
 
-    players_copy = PLAYERS.copy()
-    teams_copy = TEAMS.copy()
+    # players_copy = PLAYERS.copy()
+    # teams_copy = TEAMS.copy()
 
-    clean_data(players_copy)
-    balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
+    # clean_data(players_copy)
+    # balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
 
-    for i in balanced_list:
-        print(f"{i}:{balanced_list[i]}")
+    # for i in balanced_list:
+    #     print(f"{i}:{balanced_list[i]}")
 
-    print(f'experienced: {exp_per_team} // unexperienced: {inexp_per_team}')
+    # print(f'experienced: {exp_per_team} // unexperienced: {inexp_per_team}')
+
+    main()
