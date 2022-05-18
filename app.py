@@ -1,5 +1,5 @@
-from constants import PLAYERS
-from constants import TEAMS
+from constants_copy import PLAYERS
+from constants_copy import TEAMS
 
 def clean_height(height):
     """ cleans up player height by changing it into an integer value """ 
@@ -14,7 +14,7 @@ def clean_experience(experience_level):
 
     if experience_level == 'YES':
             experience_level = True 
-    elif experience_level == 'NO':
+    else:
         experience_level = False
 
     return experience_level
@@ -38,15 +38,48 @@ def clean_data(player_list):
 
         
 
-# def balance_teams(team_list, player_list):
-#     """balances the players across the three teams"""
+def balance_teams(team_list, player_list):
+    """balances the experienced and inexperienced players across the three teams equally"""
 
-#     player_list.shuffle()
-#     players_per_team = len(player_list) / len(team_list)
+    team_dict = {}  # in this dictionary, the team name will be the key, and a list of player names in that team will be the value
+    team_temp = team_list.copy()
 
-    
+    players_temp = player_list.copy()
 
+    experienced_players = []
+    inexperienced_players = []
 
+    for i in players_temp:
+        if i['experience'] == True:
+            experienced_players.append(i)
+        
+        elif i['experience'] == False:
+            inexperienced_players.append(i)
+            
+    exp_players_per_team = int(len(experienced_players) / len(team_list))
+    inexp_players_per_team = int(len(inexperienced_players) / len(team_list))
+
+    for team in team_temp:
+        team_dict[team] = []
+
+    start1 = 0
+    stop1 = exp_players_per_team
+
+    start2 = 0
+    stop2 = inexp_players_per_team
+
+    for team in team_temp:
+        for i in range(start1, stop1):
+            team_dict[team].append(experienced_players[i]['name'])
+        start1 += exp_players_per_team
+        stop1 += exp_players_per_team
+
+        for i in range(start2, stop2):
+            team_dict[team].append(inexperienced_players[i]['name'])
+        start2 += inexp_players_per_team
+        stop2 += inexp_players_per_team
+
+    return team_dict, exp_players_per_team, inexp_players_per_team
 
 
 if __name__ == "__main__":
@@ -55,4 +88,9 @@ if __name__ == "__main__":
     teams_copy = TEAMS.copy()
 
     clean_data(players_copy)
-    print(players_copy)
+    balanced_list, exp_per_team, inexp_per_team = balance_teams(teams_copy, players_copy)
+
+    for i in balanced_list:
+        print(f"{i}:{balanced_list[i]}")
+
+    print(f'experienced: {exp_per_team} // unexperienced: {inexp_per_team}')
